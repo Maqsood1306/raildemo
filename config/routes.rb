@@ -2,7 +2,9 @@ Rails.application.routes.draw do
 	get 'welcome', to: 'welcome#index', as: 'welcome'
 	#get 'articles/:id', to: 'welcome#index'
 
-	resources :articles
+	resources :articles do
+		resources :comments
+	end
 	#resources :messages
 
 	root 'welcome#index'

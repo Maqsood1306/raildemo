@@ -1,4 +1,5 @@
 class ArticlesController < ApplicationController
+	http_basic_authenticate_with name: "mirraw", password: "admin", except: [:index, :show]
 	def index
 		@article = Article.all
 	end
@@ -11,7 +12,7 @@ class ArticlesController < ApplicationController
 	def create	
 		@article = Article.new(article_params)
 		if 	@article.save
-			redirect_to @artcile
+			redirect_to @article
 		else
 			render 'new'
 		end
@@ -25,6 +26,12 @@ class ArticlesController < ApplicationController
 			render 'edit'
 		end
 	end
+	def destroy
+		@article = Article.find(params[:id])
+		@article.destroy
+		redirect_to articles_path
+	end
+
 	def show
 		@article = Article.find(params[:id])
 	end
